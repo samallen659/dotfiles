@@ -36,3 +36,5 @@ opt.incsearch = true
 opt.scrolloff = 30
 
 opt.cursorline = true
+
+opt.timeoutlen = 300

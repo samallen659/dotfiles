@@ -91,6 +91,7 @@ return packer.startup(function(use)
 		run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
 	})
 	use("abecodes/tabout.nvim")
+	use("jez/vim-better-sml")
 	if packer_bootstrap then
 		require("packer").sync()
 	end
