@@ -29,4 +29,5 @@ wk.register({
 		h = { "<cmd>Telescope help_tags<cr>", "Find tags" },
 		t = { "<cmd>Telescope treesitter<cr>", "Treesitter queries" },
 	},
+	w = { "<cmd>WhichKey<cr>", "WhichKey Base" },
 }, { prefix = "<leader>" })
