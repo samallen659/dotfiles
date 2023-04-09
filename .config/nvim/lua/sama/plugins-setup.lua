@@ -80,18 +80,10 @@ return packer.startup(function(use)
 
 	use("folke/which-key.nvim")
 	-- DAP
-	use({ "mfussenegger/nvim-dap" })
-	use({ "nvim-telescope/telescope-dap.nvim" })
-	use("rcarriga/nvim-dap-ui")
-	use("theHamsta/nvim-dap-virtual-text")
-	use({ "mxsdev/nvim-dap-vscode-js", requires = { "mfussenegger/nvim-dap" } })
-	use({
-		"microsoft/vscode-js-debug",
-		opt = true,
-		run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
-	})
 	use("abecodes/tabout.nvim")
 	use("jez/vim-better-sml")
+
+	use("JoosepAlviste/nvim-ts-context-commentstring")
 	if packer_bootstrap then
 		require("packer").sync()
 	end

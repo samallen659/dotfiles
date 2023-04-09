@@ -1,4 +1,4 @@
--- import lspconfig plugin safely
+--  import lspconfig plugin safely
 local lspconfig_status, lspconfig = pcall(require, "lspconfig")
 if not lspconfig_status then
 	return
@@ -16,8 +16,6 @@ if not typescript_setup then
 	return
 end
 
-local keymap = vim.keymap -- for conciseness
-
 -- enable keybinds only for when lsp server available
 local on_attach = function(client, bufnr)
 	-- keybind options
@@ -32,26 +30,19 @@ local on_attach = function(client, bufnr)
 			r = { "<cmd>Lspsaga rename<CR>", "Rename", opts },
 			D = { "<cmd>Lspsaga show_line_diagnostics<CR>", "Show diagnostics for line", opts },
 			d = { "<cmd>Lspsaga show_cursor_diagnostics<CR>", "Show diagnostics for cursor", opts },
+			a = { "<cmd>Lspsaga code_action<CR>", "See available code actions", opts },
+			k = { "<cmd>Lspsaga hover_doc<CR>", "Show hover docs", opts },
+			o = { "<cmd>LSoutlineToggle<CR>", "See outline" },
+			p = { "<cmd>Lspsaga peek_definition<CR>", "Peek definitions in editable window" },
 		},
-	})
-
-	-- set keybinds
-	-- keymap.set("n", "gf", "<cmd>Lspsaga lsp_finder<CR>", opts) -- show definition, references
-	keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts) -- got to declaration
-	keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts) -- see definition and make edits in window
-	keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts) -- go to implementation
-	keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opts) -- see available code actions
-	keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts) -- jump to previous diagnostic in buffer
-	keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts) -- jump to next diagnostic in buffer
-	keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts) -- show documentation for what is under cursor
-	keymap.set("n", "<leader>o", "<cmd>LSoutlineToggle<CR>", opts) -- see outline on right hand side
-
-	-- typescript specific keymaps (e.g. rename file and update imports)
-	if client.name == "tsserver" then
-		keymap.set("n", "<leader>rf", ":TypescriptRenameFile<CR>") -- rename file and update imports
-		keymap.set("n", "<leader>oi", ":TypescriptOrganizeImports<CR>") -- organize imports (not in youtube nvim video)
-		keymap.set("n", "<leader>ru", ":TypescriptRemoveUnused<CR>") -- remove unused variables (not in youtube nvim video)
-	end
+		g = {
+			name = "LSP Goto",
+			d = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Go to declaration", opts },
+			i = { "<cmd>lua vim.lsp.buf.implementation()>CR>", "Go to implementation", opts },
+			n = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Go to next diagnostic buffer", opts },
+			p = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Go to prev diagnostic buffer", opts },
+		},
+	}, { prefix = "<leader>" })
 end
 
 -- used to enable autocompletion (assign to every lsp server config)
