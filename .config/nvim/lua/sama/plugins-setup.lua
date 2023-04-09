@@ -80,6 +80,15 @@ return packer.startup(function(use)
 
 	use("folke/which-key.nvim")
 	-- DAP
+	use("mfussenegger/nvim-dap")
+	use("jay-babu/mason-nvim-dap.nvim")
+	use({
+		"microsoft/vscode-js-debug",
+		opt = true,
+		run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
+	})
+	use("mxsdev/nvim-dap-vscode-js")
+
 	use("abecodes/tabout.nvim")
 	use("jez/vim-better-sml")
 
