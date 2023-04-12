@@ -49,4 +49,10 @@ mason_null_ls.setup({
 	automatic_installation = true,
 })
 
-mason_nvim_dap.setup({})
+mason_nvim_dap.setup({
+	ensure_installed = {
+		"js-debug-adapter",
+	},
+	automatic_installation = true,
+	automatic_setup = true,
+})
