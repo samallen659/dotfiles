@@ -31,3 +31,8 @@ wk.register({
 	},
 	w = { "<cmd>WhichKey<cr>", "WhichKey Base" },
 }, { prefix = "<leader>" })
+
+wk.register({
+	J = { ":m '>+1<CR>gv=gv", "Move lines down" },
+	K = { ":m '<-2<CR>gv=gv", "Move lines up" },
+}, { mode = "v", prefix = "" })
