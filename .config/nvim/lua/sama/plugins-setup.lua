@@ -88,6 +88,17 @@ return packer.startup(function(use)
 	use("jez/vim-better-sml")
 
 	use("JoosepAlviste/nvim-ts-context-commentstring")
+
+	use({
+		"kylechui/nvim-surround",
+		version = "*",
+		config = function()
+			require("nvim-surround").setup({})
+		end,
+	})
+
+	use("ThePrimeagen/harpoon")
+
 	if packer_bootstrap then
 		require("packer").sync()
 	end
