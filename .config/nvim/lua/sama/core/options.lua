@@ -38,3 +38,8 @@ opt.scrolloff = 30
 opt.cursorline = true
 
 opt.timeoutlen = 800
+
+opt.foldcolumn = "1"
+opt.foldlevel = 99
+opt.foldlevelstart = 99
+opt.foldenable = true
