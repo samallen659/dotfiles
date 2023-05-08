@@ -24,10 +24,6 @@ local on_attach = function(client, bufnr)
 	local wk = require("which-key")
 
 	wk.register({
-		K = { "<cmd>Lspsaga hover_doc<CR>", "Show hover docs", opts },
-	}, { prefix = "" })
-
-	wk.register({
 		l = {
 			name = "Lsp",
 			f = { "<cmd>Lspsaga lsp_finder<CR>", "Show definition", opts },
@@ -35,6 +31,7 @@ local on_attach = function(client, bufnr)
 			D = { "<cmd>Lspsaga show_line_diagnostics<CR>", "Show diagnostics for line", opts },
 			d = { "<cmd>Lspsaga show_cursor_diagnostics<CR>", "Show diagnostics for cursor", opts },
 			a = { "<cmd>Lspsaga code_action<CR>", "See available code actions", opts },
+			k = { "<cmd>Lspsaga hover_doc<CR>", "Show hover docs", opts },
 			o = { "<cmd>LSoutlineToggle<CR>", "See outline" },
 			p = { "<cmd>Lspsaga peek_definition<CR>", "Peek definitions in editable window" },
 		},

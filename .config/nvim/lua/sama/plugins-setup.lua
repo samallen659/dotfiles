@@ -88,6 +88,7 @@ return packer.startup(function(use)
 	use("jez/vim-better-sml")
 
 	use("JoosepAlviste/nvim-ts-context-commentstring")
+<<<<<<< HEAD
 
 	use({
 		"kylechui/nvim-surround",
@@ -100,6 +101,8 @@ return packer.startup(function(use)
 	use("ThePrimeagen/harpoon")
 	use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
 
+=======
+>>>>>>> parent of 1432812 (added plugins harpoon and surround)
 	if packer_bootstrap then
 		require("packer").sync()
 	end

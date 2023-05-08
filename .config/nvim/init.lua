@@ -17,5 +17,8 @@ require("sama.plugins.gitsigns")
 require("sama.plugins.whichkey")
 require("sama.plugins.tabout")
 require("sama.plugins.js-dap")
+<<<<<<< HEAD
 require("sama.plugins.harpoon")
 require("sama.plugins.nvim-ufo")
+=======
+>>>>>>> parent of 1432812 (added plugins harpoon and surround)
