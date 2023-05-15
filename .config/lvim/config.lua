@@ -25,7 +25,8 @@ local autoCommands = {
 lvim.plugins = {
     {"lunarvim/colorschemes"},
     {"abecodes/tabout.nvim"},
-	{"bluz71/vim-moonfly-colors"}
+	{"bluz71/vim-moonfly-colors"},
+    {"theprimeagen/harpoon"}
 }
 
 
@@ -34,3 +35,16 @@ lvim.builtin.which_key.mappings["w"] = {
     v = {"<cmd>vsplit<cr>","Vertical Split"},
     h = {"<cmd>split<cr>", "Horizontal Split"}
 }
+
+
+local mark = require("harpoon.mark")
+local ui = require("harpoon.ui")
+
+lvim.builtin.which_key.mappings["a"] = {
+
+		name = "Harpoon",
+		a = { '<cmd>lua require("harpoon.mark").add_file()<CR>', "Add File" },
+		r = { '<cmd>lua require("harpoon.mark").rm_file()<CR>', "Remove File" },
+		c = { '<cmd>lua require("harpoon.mark").clear_all()<CR>', "Clear List" },
+}
+vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
