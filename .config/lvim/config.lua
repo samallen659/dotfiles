@@ -65,6 +65,14 @@ lvim.builtin.which_key.mappings["w"] = {
     h = { "<cmd>split<cr>", "Horizontal Split" }
 }
 
+-- Moving lines in visul mode
+local wk = require("which-key")
+
+wk.register({
+    J = { ":m '>+1<CR>gv=gv", "Move lines down" },
+    K = { ":m '<-2<CR>gv=gv", "Move lines up" },
+}, { mode = "v", prefix = "" })
+
 -- Harpoon
 local ui = require("harpoon.ui")
 
@@ -83,10 +91,11 @@ local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
     {
         command = "prettier",
-        extra_args = { "--print-width", "120" },
+        extra_args = { "--print-width", "120", "--tab-width", "4", "--use-tabs" },
         filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
     },
 }
+
 
 lvim.builtin.dap.active = true
 
