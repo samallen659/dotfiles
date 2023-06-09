@@ -130,7 +130,7 @@ require('lazy').setup({
   },
 
   -- {
-    -- Theme inspired by Atom
+  -- Theme inspired by Atom
   --   'navarasu/onedark.nvim',
   --   priority = 1000,
   --   config = function()
@@ -516,3 +516,7 @@ cmp.setup {
 
 -- Open Explorer
 vim.keymap.set("n", "<leader>e", ":Lexplore<cr>")
+
+-- Line moving
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
