@@ -425,10 +425,15 @@ end
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
   -- clangd = {},
-  -- gopls = {},
+  gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
-  -- tsserver = {},
+  eslint= {
+    filetypes = {"javascript", "javascriptreact", "javascript.jsx"},
+  },
+  tsserver = {
+    filetypes = {  "typescript", "typescriptreact", "typescript.tsx" },
+  },
 
   lua_ls = {
     Lua = {

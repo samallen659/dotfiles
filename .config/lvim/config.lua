@@ -83,6 +83,12 @@ lvim.builtin.which_key.mappings["a"] = {
     c = { '<cmd>lua require("harpoon.mark").clear_all()<CR>', "Clear List" },
 }
 vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
+vim.keymap.set("n", "<C-n>", function()
+    ui.nav_next()
+end)
+vim.keymap.set("n", "<C-b>", function()
+    ui.nav_prev()
+end)
 
 -- FORMATTER
 lvim.format_on_save = true -- Change this to false if you prefer
@@ -163,3 +169,4 @@ for _, language in ipairs { "typescriptreact", "javascriptreact" } do
         },
     }
 end
+
