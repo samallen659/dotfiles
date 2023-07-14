@@ -34,6 +34,12 @@ lvim.plugins = {
         build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out"
     },
     { "christoomey/vim-tmux-navigator" },
+    {
+        'windwp/nvim-ts-autotag',
+        config = function()
+            require("nvim-ts-autotag").setup()
+        end,
+    }
 }
 
 -- Tabout
@@ -169,4 +175,3 @@ for _, language in ipairs { "typescriptreact", "javascriptreact" } do
         },
     }
 end
-

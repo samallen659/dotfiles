@@ -115,3 +115,4 @@ source $ZSH/oh-my-zsh.sh
 export PATH="$PATH:/usr/local/smlnj/bin"
 export PATH=/Users/samallen/.local/bin:$PATH
 alias lg=lazygit
+alias ldr=lazydocker
