@@ -24,10 +24,12 @@ local autoCommands = {
 -- Additional Plugins
 lvim.plugins = {
     { "lunarvim/colorschemes" },
-    { "abecodes/tabout.nvim" },
     { "bluz71/vim-moonfly-colors" },
     { "theprimeagen/harpoon" },
     { "mxsdev/nvim-dap-vscode-js" },
+    { "leoluz/nvim-dap-go" },
+    { "mfussenegger/nvim-dap-python" },
+    { "theHamsta/nvim-dap-virtual-text" },
     {
         "microsoft/vscode-js-debug",
         lazy = true,
@@ -42,27 +44,6 @@ lvim.plugins = {
     }
 }
 
--- Tabout
-require('tabout').setup {
-    tabkey = '<Tab>',             -- key to trigger tabout, set to an empty string to disable
-    backwards_tabkey = '<S-Tab>', -- key to trigger backwards tabout, set to an empty string to disable
-    act_as_tab = true,            -- shift content if tab out is not possible
-    act_as_shift_tab = false,     -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
-    default_tab = '<C-t>',        -- shift default action (only at the beginning of a line, otherwise <TAB> is used)
-    default_shift_tab = '<C-d>',  -- reverse shift default action,
-    enable_backwards = true,      -- well ...
-    completion = true,            -- if the tabkey is used in a completion pum
-    tabouts = {
-        { open = "'", close = "'" },
-        { open = '"', close = '"' },
-        { open = '`', close = '`' },
-        { open = '(', close = ')' },
-        { open = '[', close = ']' },
-        { open = '{', close = '}' }
-    },
-    ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
-    exclude = {} -- tabout will ignore these filetypes
-}
 
 -- window spliting
 lvim.builtin.which_key.mappings["w"] = {
@@ -106,72 +87,22 @@ formatters.setup {
         extra_args = { "--print-width", "120", "--tab-width", "4", "--use-tabs" },
         filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
     },
+    {
+        command = "gofmt",
+        filetypes = { "go" },
+    },
+    {
+        command = "golines",
+        filetypes = { "go" },
+    },
+    {
+        command = "goimports",
+        filetypes = { "go" },
+    },
 }
 
 
 lvim.builtin.dap.active = true
-
-local debugger_path = os.getenv("LUNARVIM_RUNTIME_DIR") .. "/site/pack/lazy/opt/vscode-js-debug"
-
-require("dap-vscode-js").setup {
-    node_path = "node",
-    debugger_path = debugger_path,
-    -- debugger_cmd = { "js-debug-adapter" },
-    adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" }, -- which adapters to register in nvim-dap
-}
-
-for _, language in ipairs { "typescript", "javascript" } do
-    require("dap").configurations[language] = {
-        {
-            type = "pwa-node",
-            request = "launch",
-            name = "Launch file",
-            program = "${file}",
-            cwd = "${workspaceFolder}",
-        },
-        {
-            type = "pwa-node",
-            request = "attach",
-            name = "Attach",
-            processId = require("dap.utils").pick_process,
-            cwd = "${workspaceFolder}",
-        },
-        {
-            type = "pwa-node",
-            request = "launch",
-            name = "Debug Jest Tests",
-            -- trace = true, -- include debugger info
-            runtimeExecutable = "node",
-            runtimeArgs = {
-                "./node_modules/jest/bin/jest.js",
-                "--runInBand",
-            },
-            rootPath = "${workspaceFolder}",
-            cwd = "${workspaceFolder}",
-            console = "integratedTerminal",
-            internalConsoleOptions = "neverOpen",
-        },
-    }
-end
-
-for _, language in ipairs { "typescriptreact", "javascriptreact" } do
-    require("dap").configurations[language] = {
-        {
-            type = "pwa-chrome",
-            name = "Attach - Remote Debugging",
-            request = "attach",
-            program = "${file}",
-            cwd = vim.fn.getcwd(),
-            sourceMaps = true,
-            protocol = "inspector",
-            port = 9222,
-            webRoot = "${workspaceFolder}",
-        },
-        {
-            type = "pwa-chrome",
-            name = "Launch Chrome",
-            request = "launch",
-            url = "http://localhost:3000",
-        },
-    }
-end
+require("dap-go").setup()
+require("nvim-dap-virtual-text").setup()
+require("dap-python").setup('~/.local/share/lvim/mason/packages/debugpy/venv/bin/python')
