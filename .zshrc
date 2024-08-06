@@ -138,5 +138,7 @@ alias notes="cd $NOTES"
 alias cdnvim="cd ~/.config/nvim/lua"
 alias code="cd $CODE"
 alias scripts="cd $SCRIPTS"
+alias dotfiles="cd ~/.dotfiles"
 
 alias tff="tmux new -c \$(fd --type d | fzf)"
+
