@@ -11,6 +11,7 @@ return {
                 "helm",
                 "json",
                 "python",
+                "powershell",
                 "sql",
                 "toml",
                 "yaml",
