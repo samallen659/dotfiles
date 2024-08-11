@@ -113,7 +113,7 @@ source $ZSH/oh-my-zsh.sh
 export CODE="$HOME/Code"
 export NOTES="$HOME/Documents/notes"
 export INBOX="$NOTES/00-inbox"
-export SCRIPTS="$CODE/scripts"
+export SCRIPTS="$HOME/scripts"
 
 # SML config
 export PATH="$PATH:/usr/local/smlnj/bin"
