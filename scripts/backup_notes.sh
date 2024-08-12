@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-cd "/User/samallen/Documents/notes"
+cd '/Users/samallen/Library/Mobile\ Documents/iCloud~md~obsidian/Documents'
 today=$(date +'%d%m%Y')
 
 if [[ `git status --porcelain` ]]; then
