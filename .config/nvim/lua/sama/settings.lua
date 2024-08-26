@@ -17,3 +17,7 @@ vim.opt.incsearch = true
 vim.opt.termguicolors = true
 
 vim.opt.conceallevel = 2
+
+vim.opt.clipboard = "unnamedplus"
+
+vim.opt.signcolumn = 'yes:1'

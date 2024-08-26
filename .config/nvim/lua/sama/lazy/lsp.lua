@@ -38,7 +38,7 @@ return {
 
         -- require("luasnip.loaders.from_vscode").lazy_load()
 
-        local cmp_select = { behavior = cmp.SelectBehavior.Replace }
+        -- local cmp_select = { behavior = cmp.SelectBehavior.Replace }
 
         cmp.setup({
             snippet = {
@@ -46,11 +46,17 @@ return {
                     require('luasnip').lsp_expand(args.body)
                 end,
             },
+            window = {
+                completion = cmp.config.window.bordered(),
+                documentation = cmp.config.window.bordered(),
+            },
             mapping = cmp.mapping.preset.insert({
-                ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item(cmp_select), {'i'}),
-                ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item(cmp_select), {'i'}),
+                ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item(), {'i', 'c'}),
+                ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item(), {'i', 'c'}),
                 ['<C-y>'] = cmp.mapping.confirm({ select = true }),
                 ['<C-Enter>'] = cmp.mapping.confirm({ select = true }),
+                ['<Enter>'] = cmp.mapping.confirm({ select = true }),
+                ['<CR>'] = cmp.mapping.confirm({select = true}),
                 ['<C-Space>'] = cmp.mapping.complete(),
             }),
             sources = cmp.config.sources({
