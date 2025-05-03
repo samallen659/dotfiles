@@ -20,4 +20,6 @@ vim.opt.conceallevel = 2
 
 vim.opt.clipboard = "unnamedplus"
 
-vim.opt.signcolumn = 'yes:1'
+vim.opt.signcolumn = "yes:1"
+
+vim.opt.scrolloff = 8
