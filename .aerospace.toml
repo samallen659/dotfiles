@@ -81,7 +81,7 @@ outer.right =      20
 # Fallback value (if you omit the key): mode.main.binding = {}
 [mode.main.binding]
 
-alt-shift-cmd-ctrl-f = 'fullscreen'
+alt-shift-cmd-ctrl-m = 'fullscreen'
 
 # All possible keys:
 # - Letters.        a, b, c, ..., z
