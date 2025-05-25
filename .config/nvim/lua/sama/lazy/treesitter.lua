@@ -16,6 +16,7 @@ return {
 				"sql",
 				"toml",
 				"yaml",
+				"ini",
 			},
 			highlight = {
 				enable = true,
