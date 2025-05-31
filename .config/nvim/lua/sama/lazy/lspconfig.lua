@@ -73,49 +73,103 @@ return {
 		-- used to enable autocompletion (assign to every lsp server config)
 		local capabilities = cmp_nvim_lsp.default_capabilities()
 
-		-- Change the Diagnostic symbols in the sign column (gutter)
-		-- (not in youtube nvim video)
-		local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
-		for type, icon in pairs(signs) do
-			local hl = "DiagnosticSign" .. type
-			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+		-- -- Change the Diagnostic symbols in the sign column (gutter)
+		-- -- (not in youtube nvim video)
+		-- local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
+		-- for type, icon in pairs(signs) do
+		-- 	local hl = "DiagnosticSign" .. type
+		-- 	vim.diagnostic.config(hl, { text = icon, texthl = hl, numhl = "" })
+		-- end
+
+		vim.diagnostic.config({
+			signs = {
+				text = {
+					[vim.diagnostic.severity.ERROR] = " ",
+					[vim.diagnostic.severity.WARN] = " ",
+					[vim.diagnostic.severity.HINT] = "󰠠 ",
+					[vim.diagnostic.severity.INFO] = " ",
+				},
+			},
+			virtual_text = true,
+			underline = true,
+			update_in_insert = false,
+			severity_sort = true,
+		})
+
+		mason_lspconfig.setup({
+			ensure_install = {
+				"bicep",
+				"lua_ls",
+			},
+		})
+
+		local servers = mason_lspconfig.get_installed_servers()
+		for _, server_name in ipairs(servers) do
+			lspconfig[server_name].setup({
+				capabilities = capabilities,
+				on_attach = on_attach,
+			})
 		end
 
-		mason_lspconfig.setup_handlers({
-			--default setup
-			function(server_name)
-				lspconfig[server_name].setup({
-					capabilities = capabilities,
-					on_attach = on_attach,
-				})
-			end,
-			["bicep"] = function()
-				lspconfig["bicep"].setup({
-					capabilities = capabilities,
-					on_attach = on_attach,
-					filetyypes = { "bicep", "bicepparam" },
-					cmd = { "bicep-lsp" },
-				})
-			end,
-			["lua_ls"] = function()
-				lspconfig["lua_ls"].setup({
-					capabilities = capabilities,
-					on_attach = on_attach,
-					settings = {
-						Lua = {
-							diagnostics = {
-								globals = { "vim" },
-							},
-							workspace = {
-								library = {
-									[vim.fn.expand("VIMRUNTIME/lua")] = true,
-									[vim.fn.stdpath("config") .. "/lua"] = true,
-								},
-							},
+		lspconfig["bicep"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+			filetyypes = { "bicep", "bicepparam" },
+			cmd = { "bicep-lsp" },
+		})
+		lspconfig["lua_ls"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+			settings = {
+				Lua = {
+					diagnostics = {
+						globals = { "vim" },
+					},
+					workspace = {
+						library = {
+							[vim.fn.expand("VIMRUNTIME/lua")] = true,
+							[vim.fn.stdpath("config") .. "/lua"] = true,
 						},
 					},
-				})
-			end,
+				},
+			},
 		})
+
+		--   .setup_handlers({
+		-- 	--default setup
+		-- 	function(server_name)
+		-- 		lspconfig[server_name].setup({
+		-- 			capabilities = capabilities,
+		-- 			on_attach = on_attach,
+		-- 		})
+		-- 	end,
+		-- 	["bicep"] = function()
+		-- 		lspconfig["bicep"].setup({
+		-- 			capabilities = capabilities,
+		-- 			on_attach = on_attach,
+		-- 			filetyypes = { "bicep", "bicepparam" },
+		-- 			cmd = { "bicep-lsp" },
+		-- 		})
+		-- 	end,
+		-- 	["lua_ls"] = function()
+		-- 		lspconfig["lua_ls"].setup({
+		-- 			capabilities = capabilities,
+		-- 			on_attach = on_attach,
+		-- 			settings = {
+		-- 				Lua = {
+		-- 					diagnostics = {
+		-- 						globals = { "vim" },
+		-- 					},
+		-- 					workspace = {
+		-- 						library = {
+		-- 							[vim.fn.expand("VIMRUNTIME/lua")] = true,
+		-- 							[vim.fn.stdpath("config") .. "/lua"] = true,
+		-- 						},
+		-- 					},
+		-- 				},
+		-- 			},
+		-- 		})
+		-- 	end,
+		-- })
 	end,
 }
