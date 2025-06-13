@@ -61,25 +61,8 @@ return {
 			keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
 		end
 
-		-- vim.api.nvim_create_autocmd("LspAttach", {
-		-- 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-		-- 	callback = function(ev)
-		-- 		-- Buffer local mappings.
-		-- 		-- See `:help vim.lsp.*` for documentation on any of the below functions
-		-- 		local opts = { buffer = ev.buf, silent = true }
-		-- 	end,
-		-- })
-
 		-- used to enable autocompletion (assign to every lsp server config)
 		local capabilities = cmp_nvim_lsp.default_capabilities()
-
-		-- -- Change the Diagnostic symbols in the sign column (gutter)
-		-- -- (not in youtube nvim video)
-		-- local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
-		-- for type, icon in pairs(signs) do
-		-- 	local hl = "DiagnosticSign" .. type
-		-- 	vim.diagnostic.config(hl, { text = icon, texthl = hl, numhl = "" })
-		-- end
 
 		vim.diagnostic.config({
 			signs = {
@@ -96,80 +79,101 @@ return {
 			severity_sort = true,
 		})
 
+		local ensure_installed = { "bicep", "lua_ls" }
 		mason_lspconfig.setup({
-			ensure_install = {
-				"bicep",
-				"lua_ls",
-			},
+			ensure_installed = ensure_installed,
+			automatic_enable = true,
 		})
+
+		local check_in_ensure_installed = function(name)
+			for _, i in ipairs(ensure_installed) do
+				if name == i then
+					return true
+				end
+			end
+			return false
+		end
 
 		local servers = mason_lspconfig.get_installed_servers()
 		for _, server_name in ipairs(servers) do
-			lspconfig[server_name].setup({
-				capabilities = capabilities,
-				on_attach = on_attach,
-			})
+			if not check_in_ensure_installed(server_name) then
+				lspconfig[server_name].setup({
+					capabilities = capabilities,
+					on_attach = on_attach,
+				})
+			end
 		end
 
 		lspconfig["bicep"].setup({
 			capabilities = capabilities,
 			on_attach = on_attach,
-			filetyypes = { "bicep", "bicepparam" },
+			filetypes = { "bicep", "bicepparam" },
 			cmd = { "bicep-lsp" },
 		})
+		-- lspconfig["lua_ls"].setup({
+		-- 	capabilities = capabilities,
+		-- 	on_attach = on_attach,
+		-- 	settings = {
+		-- 		Lua = {
+		-- 			diagnostics = {
+		-- 				globals = { "vim" },
+		-- 			},
+		-- 			workspace = {
+		-- 				library = {
+		-- 					[vim.fn.expand("VIMRUNTIME/lua")] = true,
+		-- 					[vim.fn.stdpath("config") .. "/lua"] = true,
+		-- 				},
+		-- 			},
+		-- 		},
+		-- 	},
+		-- })
 		lspconfig["lua_ls"].setup({
 			capabilities = capabilities,
 			on_attach = on_attach,
 			settings = {
 				Lua = {
+					runtime = {
+						-- Tell the language server which version of Lua you're using
+						version = "LuaJIT", -- or "Lua 5.1" if that's more accurate for your environment
+						path = vim.split(package.path, ";"),
+					},
 					diagnostics = {
 						globals = { "vim" },
+						disable = { "lowercase-global" }, -- optional: reduce noise for Neovim scripts
 					},
 					workspace = {
-						library = {
-							[vim.fn.expand("VIMRUNTIME/lua")] = true,
-							[vim.fn.stdpath("config") .. "/lua"] = true,
-						},
+						library = vim.api.nvim_get_runtime_file("", true), -- picks up everything in runtimepath
+						checkThirdParty = false, -- prevents unnecessary prompts about "third-party" libraries
+					},
+					telemetry = {
+						enable = false, -- disable telemetry
+					},
+					format = {
+						enable = true, -- enable formatting using lua_ls (optional)
 					},
 				},
 			},
 		})
-
-		--   .setup_handlers({
-		-- 	--default setup
-		-- 	function(server_name)
-		-- 		lspconfig[server_name].setup({
-		-- 			capabilities = capabilities,
-		-- 			on_attach = on_attach,
-		-- 		})
-		-- 	end,
-		-- 	["bicep"] = function()
-		-- 		lspconfig["bicep"].setup({
-		-- 			capabilities = capabilities,
-		-- 			on_attach = on_attach,
-		-- 			filetyypes = { "bicep", "bicepparam" },
-		-- 			cmd = { "bicep-lsp" },
-		-- 		})
-		-- 	end,
-		-- 	["lua_ls"] = function()
-		-- 		lspconfig["lua_ls"].setup({
-		-- 			capabilities = capabilities,
-		-- 			on_attach = on_attach,
-		-- 			settings = {
-		-- 				Lua = {
-		-- 					diagnostics = {
-		-- 						globals = { "vim" },
-		-- 					},
-		-- 					workspace = {
-		-- 						library = {
-		-- 							[vim.fn.expand("VIMRUNTIME/lua")] = true,
-		-- 							[vim.fn.stdpath("config") .. "/lua"] = true,
-		-- 						},
-		-- 					},
-		-- 				},
-		-- 			},
-		-- 		})
-		-- 	end,
-		-- })
+		lspconfig["yamlls"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+			filetypes = { "yaml", "yml" },
+			settings = {
+				yaml = {
+					keyOrdering = false,
+					format = {
+						enable = true,
+					},
+					validate = true,
+					schemaStore = {
+						enable = true,
+					},
+					schemas = {
+						["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+						["https://json.schemastore.org/github-action.json"] = "/.github/actions/*",
+					},
+				},
+			},
+		})
 	end,
 }

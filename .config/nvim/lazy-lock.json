@@ -20,6 +20,7 @@
   "moonfly": { "branch": "master", "commit": "ff822100c5d268e0db79e8e725cbd3ade3470de3" },
   "neodev.nvim": { "branch": "main", "commit": "46aa467dca16cf3dfe27098042402066d2ae242d" },
   "no-neck-pain.nvim": { "branch": "main", "commit": "137c9c4992fc51f43047bed4ba8aaf021edcd858" },
+  "nvim-ansible": { "branch": "main", "commit": "bba61168b7aef735e7f950fdfece5ef6c388eacf" },
   "nvim-cmp": { "branch": "main", "commit": "b5311ab3ed9c846b585c0c15b7559be131ec4be9" },
   "nvim-lsp-file-operations": { "branch": "master", "commit": "9744b738183a5adca0f916527922078a965515ed" },
   "nvim-lspconfig": { "branch": "master", "commit": "03bc581e05e81d33808b42b2d7e76d70adb3b595" },
