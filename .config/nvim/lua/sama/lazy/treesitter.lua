@@ -17,6 +17,7 @@ return {
 				"toml",
 				"yaml",
 				"ini",
+				"hcl",
 			},
 			highlight = {
 				enable = true,
