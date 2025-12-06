@@ -8,6 +8,17 @@ fi
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+#
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+# plugins=(git zsh-autosuggestions zsh-syntax-highlighting poetry)
+plugins=(git poetry)
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -70,17 +81,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # see 'man strftime' for details.
 # HIST_STAMPS="mm/dd/yyyy"
 
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting poetry)
-
-source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -119,13 +120,16 @@ export NOTES="$HOME/Documents/notes"
 export INBOX="$NOTES/00-inbox"
 export SCRIPTS="$HOME/scripts"
 
+# Homebrew
+export PATH="$PATH:/opt/homebrew/share"
+
 # SML config
 export PATH="$PATH:/usr/local/smlnj/bin"
-export PATH=/Users/samallen/.local/bin:$PATH
+export PATH=/Users/sama/.local/bin:$PATH
 
 
 #GOLANG
-export PATH=$PATH:/Users/samallen/go/bin
+export PATH=$PATH:/Users/sama/go/bin
 # export GOPATH=$HOME/go
 
 export PATH="$PATH:/$SCRIPTS"
@@ -133,7 +137,7 @@ export PATH="$PATH:/$SCRIPTS"
 # My Alias's
 alias lg=lazygit
 alias ldr=lazydocker
-alias dlv="/Users/samallen/.local/share/lvim/mason/packages/delve/./dlv"
+alias dlv="/Users/sama/.local/share/lvim/mason/packages/delve/./dlv"
 alias c=clear
 
 alias fd="fd -I"
@@ -142,7 +146,10 @@ alias notes="cd $NOTES"
 alias cdnvim="cd ~/.config/nvim/lua"
 alias code="cd $CODE"
 alias scripts="cd $SCRIPTS"
-alias dotfiles="cd ~/.dotfiles"
+alias dotfiles="cd ~/dotfiles"
 
 alias tff="tmux new -c \$(fd --type d | fzf)"
 
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $ZSH/oh-my-zsh.sh
