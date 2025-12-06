@@ -35,7 +35,6 @@ return {
 				"emmet_ls",
 				"pyright",
 				"gopls",
-				"bicep",
 			},
 		})
 
