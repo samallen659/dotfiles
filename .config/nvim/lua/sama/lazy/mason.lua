@@ -30,7 +30,7 @@ return {
 				"lua_ls",
 				"pyrefly",
 				"gopls",
-				"terraform-ls",
+				"terraformls",
 				"powershell_es",
 			},
 		})
