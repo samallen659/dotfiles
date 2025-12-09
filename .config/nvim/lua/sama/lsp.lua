@@ -6,12 +6,9 @@
 local servers = {
 	"lua_ls", -- Lua language server
 	"gopls", -- Go language server
-	"ts_ls", -- TypeScript/JavaScript language server
-	"tailwindcss", -- Tailwind CSS language server
-	"html_ls", -- HTML language server
-	"css_ls", -- CSS language server
 	"terraform_ls", -- terraform language server
 	"powershell_es",
+	"pyrefly",
 }
 
 -- ============================================================================
