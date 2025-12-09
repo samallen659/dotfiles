@@ -4,13 +4,14 @@
 -- Each server config is loaded from lsp/<server-name>.lua
 
 local servers = {
-	"lua-ls", -- Lua language server
+	"lua_ls", -- Lua language server
 	"gopls", -- Go language server
-	"ts-ls", -- TypeScript/JavaScript language server
+	"ts_ls", -- TypeScript/JavaScript language server
 	"tailwindcss", -- Tailwind CSS language server
-	"html-ls", -- HTML language server
-	"css-ls", -- CSS language server
-	"terraform-ls", -- terraform language server
+	"html_ls", -- HTML language server
+	"css_ls", -- CSS language server
+	"terraform_ls", -- terraform language server
+	"powershell_es",
 }
 
 -- ============================================================================
@@ -170,7 +171,9 @@ for _, server_name in ipairs(servers) do
 			server_config.capabilities = vim.tbl_deep_extend("force", capabilities, server_config.capabilities or {})
 
 			-- Enable the LSP with the loaded config
-			vim.lsp.enable(server_name, server_config)
+			vim.lsp.config[server_name] = server_config
+			vim.lsp.enable(server_name)
+			-- vim.lsp.enable(server_name, server_config)
 		else
 			-- If config load failed, enable with default config
 			vim.notify(string.format("Failed to load config for %s, using defaults", server_name), vim.log.levels.WARN)
@@ -181,7 +184,6 @@ for _, server_name in ipairs(servers) do
 		vim.lsp.enable(server_name, { capabilities = capabilities })
 	end
 end
-
 -- ============================================================================
 -- Utility Commands
 -- ============================================================================
@@ -347,12 +349,79 @@ vim.api.nvim_create_user_command("LspInfo", function()
 	print("󰒋 LSP clients attached to buffer " .. bufnr .. ":")
 	print("─────────────────────────────────")
 
+	-- for i, client in ipairs(clients) do
+	-- 	print(string.format("󰌘 Client %d: %s", i, client.name))
+	-- 	print("  ID: " .. client.id)
+	-- 	print("  Root dir: " .. (client.config.root_dir or "Not set"))
+	-- 	print("  Command: " .. table.concat(client.config.cmd or {}, " "))
+	-- 	print("  Filetypes: " .. table.concat(client.config.filetypes or {}, ", "))
+	--
+	-- 	if client.is_stopped() then
+	-- 		print("  Status: 󰅚 Stopped")
+	-- 	else
+	-- 		print("  Status: 󰄬 Running")
+	-- 	end
+	--
+	-- 	if client.workspace_folders and #client.workspace_folders > 0 then
+	-- 		print("  Workspace folders:")
+	-- 		for _, folder in ipairs(client.workspace_folders) do
+	-- 			print("    • " .. folder.name)
+	-- 		end
+	-- 	end
+	--
+	-- 	local attached_buffers = {}
+	-- 	for buf, _ in pairs(client.attached_buffers or {}) do
+	-- 		table.insert(attached_buffers, buf)
+	-- 	end
+	-- 	print("  Attached buffers: " .. #attached_buffers)
+	--
+	-- 	local caps = client.server_capabilities
+	-- 	local key_features = {}
+	-- 	if caps.completionProvider then
+	-- 		table.insert(key_features, "completion")
+	-- 	end
+	-- 	if caps.hoverProvider then
+	-- 		table.insert(key_features, "hover")
+	-- 	end
+	-- 	if caps.definitionProvider then
+	-- 		table.insert(key_features, "definition")
+	-- 	end
+	-- 	if caps.documentFormattingProvider then
+	-- 		table.insert(key_features, "formatting")
+	-- 	end
+	-- 	if caps.codeActionProvider then
+	-- 		table.insert(key_features, "code_action")
+	-- 	end
+	--
+	-- 	if #key_features > 0 then
+	-- 		print("  Key features: " .. table.concat(key_features, ", "))
+	-- 	end
+	--
+	-- 	print("")
+	-- end
+
 	for i, client in ipairs(clients) do
 		print(string.format("󰌘 Client %d: %s", i, client.name))
 		print("  ID: " .. client.id)
 		print("  Root dir: " .. (client.config.root_dir or "Not set"))
-		print("  Command: " .. table.concat(client.config.cmd or {}, " "))
-		print("  Filetypes: " .. table.concat(client.config.filetypes or {}, ", "))
+
+		-- Safe cmd handling
+		local cmd = client.config.cmd
+		if type(cmd) == "function" then
+			local ok, result = pcall(cmd)
+			if ok then
+				cmd = result
+			end
+		end
+		if type(cmd) == "table" then
+			print("  Command: " .. table.concat(cmd, " "))
+		else
+			print("  Command: (dynamic or unavailable)")
+		end
+
+		if client.config.filetypes then
+			print("  Filetypes: " .. table.concat(client.config.filetypes, ", "))
+		end
 
 		if client.is_stopped() then
 			print("  Status: 󰅚 Stopped")
@@ -360,6 +429,7 @@ vim.api.nvim_create_user_command("LspInfo", function()
 			print("  Status: 󰄬 Running")
 		end
 
+		-- Workspace folders
 		if client.workspace_folders and #client.workspace_folders > 0 then
 			print("  Workspace folders:")
 			for _, folder in ipairs(client.workspace_folders) do
@@ -367,14 +437,17 @@ vim.api.nvim_create_user_command("LspInfo", function()
 			end
 		end
 
+		-- Attached buffers
 		local attached_buffers = {}
 		for buf, _ in pairs(client.attached_buffers or {}) do
 			table.insert(attached_buffers, buf)
 		end
 		print("  Attached buffers: " .. #attached_buffers)
 
+		-- Key features
 		local caps = client.server_capabilities
 		local key_features = {}
+
 		if caps.completionProvider then
 			table.insert(key_features, "completion")
 		end
@@ -397,7 +470,6 @@ vim.api.nvim_create_user_command("LspInfo", function()
 
 		print("")
 	end
-
 	local diagnostics = vim.diagnostic.get(bufnr)
 	if #diagnostics > 0 then
 		print("󰒡 Diagnostics Summary:")

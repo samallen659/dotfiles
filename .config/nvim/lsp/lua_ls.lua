@@ -1,27 +1,21 @@
 return {
-	capabilities = capabilities,
-	on_attach = on_attach,
+	cmd = { "lua-language-server" },
+	filetypes = { "lua" },
+	root_markers = {
+		".emmyrc.json",
+		".luarc.json",
+		".luarc.jsonc",
+		".luacheckrc",
+		".stylua.toml",
+		"stylua.toml",
+		"selene.toml",
+		"selene.yml",
+		".git",
+	},
 	settings = {
 		Lua = {
-			runtime = {
-				-- Tell the language server which version of Lua you're using
-				version = "LuaJIT", -- or "Lua 5.1" if that's more accurate for your environment
-				path = vim.split(package.path, ";"),
-			},
-			diagnostics = {
-				globals = { "vim" },
-				disable = { "lowercase-global" }, -- optional: reduce noise for Neovim scripts
-			},
-			workspace = {
-				library = vim.api.nvim_get_runtime_file("", true), -- picks up everything in runtimepath
-				checkThirdParty = false, -- prevents unnecessary prompts about "third-party" libraries
-			},
-			telemetry = {
-				enable = false, -- disable telemetry
-			},
-			format = {
-				enable = true, -- enable formatting using lua_ls (optional)
-			},
+			codeLens = { enable = true },
+			hint = { enable = true, semicolon = "Disable" },
 		},
 	},
 }
