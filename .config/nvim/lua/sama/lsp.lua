@@ -9,6 +9,7 @@ local servers = {
 	"terraform_ls", -- terraform language server
 	"powershell_es",
 	"pyrefly",
+	"jsonls",
 }
 
 -- ============================================================================
