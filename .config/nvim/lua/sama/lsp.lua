@@ -6,7 +6,7 @@
 local servers = {
 	"lua_ls", -- Lua language server
 	"gopls", -- Go language server
-	"terraform_ls", -- terraform language server
+	"terraformls", -- terraform language server
 	"powershell_es",
 	"pyrefly",
 	"jsonls",
