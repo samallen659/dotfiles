@@ -115,7 +115,7 @@ git config --global core.editor "nvim"
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export CODE="$HOME/Code"
-export NOTES="$HOME/Documents/notes"
+export NOTES="$HOME/notes"
 export INBOX="$NOTES/00-inbox"
 export SCRIPTS="$HOME/scripts"
 
