@@ -120,9 +120,6 @@ export NOTES="$HOME/Documents/notes"
 export INBOX="$NOTES/00-inbox"
 export SCRIPTS="$HOME/scripts"
 
-# Homebrew
-export PATH="$PATH:/opt/homebrew/share"
-
 # SML config
 export PATH="$PATH:/usr/local/smlnj/bin"
 export PATH=/Users/sama/.local/bin:$PATH
@@ -150,6 +147,4 @@ alias dotfiles="cd ~/dotfiles"
 
 alias tff="tmux new -c \$(fd --type d | fzf)"
 
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $ZSH/oh-my-zsh.sh
