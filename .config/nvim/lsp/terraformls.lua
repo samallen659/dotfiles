@@ -6,9 +6,13 @@ return {
 
 	filetypes = {
 		"terraform",
-		"tf",
-		"hcl",
-		"tfvars",
+		"terraform-vars",
+		"terraform-stack",
+		"terraform-search",
+		"terraform-deploy",
+		-- "tf",
+		-- "hcl",
+		-- "tfvars",
 	},
 
 	root_markers = { "main.tf", ".git", "terraform.tfvars", ".terraform" },
@@ -16,15 +20,14 @@ return {
 	-- Optional: Terraform LSP has a schema/hcl-specific setting block
 	settings = {
 		terraform = {
-			-- enable formatting (if desired)
-			format = {
-				enable = true,
-			},
+			format = { enable = true },
 			languageServer = {
-				experimentalFeatures = {
-					validateOnSave = true,
-				},
+				experimentalFeatures = { validateOnSave = true },
 			},
+		},
+		["terraform-ls"] = {
+			rootModules = { ".", "modules/*", "env/*", "infra/*" },
+			excludeRootModules = { "vendor/*", "test/fixtures/*" },
 		},
 	},
 }
