@@ -25,7 +25,11 @@ return {
 		-- C-k: Toggle signature help (if signature.enabled = true)
 		--
 		-- See :h blink-cmp-config-keymap for defining your own keymap
-		keymap = { preset = "super-tab" },
+		keymap = {
+			preset = "enter",
+			["<C-j>"] = { "select_next" },
+			["<C-k>"] = { "select_prev" },
+		},
 
 		appearance = {
 			-- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
@@ -40,6 +44,9 @@ return {
 		-- elsewhere in your config, without redefining it, due to `opts_extend`
 		sources = {
 			default = { "lsp", "path", "snippets", "buffer" },
+			providers = {
+				lsp = { fallbacks = {} },
+			},
 		},
 
 		-- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
