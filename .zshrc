@@ -123,12 +123,13 @@ export SCRIPTS="$HOME/scripts"
 export PATH="$PATH:/usr/local/smlnj/bin"
 export PATH=/Users/samallen/.local/bin:$PATH
 
-
 #GOLANG
 export PATH=$PATH:/Users/samallen/go/bin
 # export GOPATH=$HOME/go
 
 export PATH="$PATH:/$SCRIPTS"
+
+export PATH="$PATH:/opt/ps_dsc"
 
 # My Alias's
 alias lg=lazygit
@@ -145,4 +146,3 @@ alias scripts="cd $SCRIPTS"
 alias dotfiles="cd ~/.dotfiles"
 
 alias tff="tmux new -c \$(fd --type d | fzf)"
-
