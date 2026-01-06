@@ -8,3 +8,10 @@ autocmd({ "FileType" }, {
 	pattern = { "markdown", "gitcommit" },
 	command = ":set wrap",
 })
+
+autocmd({ "FileType" }, {
+	pattern = { "terraform" },
+	callback = function()
+		vim.lsp.enable("terraformls")
+	end,
+})

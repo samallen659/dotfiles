@@ -10,7 +10,7 @@ return {
 		"terraform-stack",
 		"terraform-search",
 		"terraform-deploy",
-		-- "tf",
+		"tf",
 		-- "hcl",
 		-- "tfvars",
 	},
