@@ -10,6 +10,8 @@ local servers = {
 	"powershell_es",
 	"pyrefly",
 	"jsonls",
+	"gh_actions_ls",
+	-- "yamlls",
 }
 
 -- ============================================================================
