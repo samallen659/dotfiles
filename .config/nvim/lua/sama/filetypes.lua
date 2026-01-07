@@ -3,4 +3,7 @@ vim.filetype.add({
 		tf = "terraform",
 		tfvars = "terraform-vars",
 	},
+	pattern = {
+		[".github/workflows/.*%.ya?ml"] = "yaml.ghactions",
+	},
 })
