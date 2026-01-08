@@ -131,6 +131,9 @@ export PATH="$PATH:/$SCRIPTS"
 
 export PATH="$PATH:/opt/ps_dsc"
 
+#Adds neovim mason installed dir to path
+export PATH="$PATH:/home/sama/.local/share/nvim/mason/bin"
+
 # My Alias's
 alias lg=lazygit
 alias ldr=lazydocker
