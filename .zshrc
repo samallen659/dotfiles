@@ -134,6 +134,8 @@ export PATH=$PATH:/Users/sama/go/bin
 
 export PATH="$PATH:/$SCRIPTS"
 
+export PATH="$PATH:/Users/sama/.local/share/nvim/mason/bin"
+
 # My Alias's
 alias lg=lazygit
 alias ldr=lazydocker
