@@ -3,5 +3,19 @@ return {
 	---@type powershell.user_config
 	opts = {
 		bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services",
+		settings = {
+			powershell = {
+				codeFormatting = {
+					openBraceOnSameLine = true,
+					newLineAfterOpenBrace = true,
+					newLineAfterCloseBrace = true,
+					whitespaceBeforeOpenBrace = true,
+					whitespaceBeforeOpenParen = false,
+					whitespaceAroundOperator = true,
+					whitespaceAfterSeparator = true,
+					ignoreOneLineBlock = true,
+				},
+			},
+		},
 	},
 }
