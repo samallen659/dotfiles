@@ -11,8 +11,8 @@ return {
 		"terraform-search",
 		"terraform-deploy",
 		"tf",
-		-- "hcl",
-		-- "tfvars",
+		"hcl",
+		"tfvars",
 	},
 
 	root_markers = { "main.tf", ".git", "terraform.tfvars", ".terraform" },
