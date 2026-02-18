@@ -11,6 +11,7 @@ local servers = {
 	"pyrefly",
 	"jsonls",
 	"gh_actions_ls",
+	"ansiblels",
 	-- "yamlls",
 }
 
