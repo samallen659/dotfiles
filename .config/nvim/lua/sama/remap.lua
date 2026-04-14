@@ -12,3 +12,6 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "<leader>h", "<cmd>noh<cr>")
 
 vim.keymap.set("n", "<leader>sw", "<cmd>set wrap<cr>")
+
+vim.keymap.set("n", "<leader>ce", "<cmd>Copilot enable<cr>")
+vim.keymap.set("n", "<leader>co", "<cmd>Copilot disable<cr>")
