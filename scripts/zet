@@ -59,4 +59,4 @@ if [[ $# -eq 1 ]]; then
     filename=$1
 fi
 
-open_file "$NOTES/00-inbox"
+open_file "$NOTES/01-notes"
