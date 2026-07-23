@@ -149,3 +149,4 @@ alias scripts="cd $SCRIPTS"
 alias dotfiles="cd ~/.dotfiles"
 
 alias tff="tmux new -c \$(fd --type d | fzf)"
+alias cat="/usr/bin/batcat"
