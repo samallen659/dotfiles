@@ -134,6 +134,9 @@ export PATH="$PATH:/opt/ps_dsc"
 #Adds neovim mason installed dir to path
 export PATH="$PATH:/home/sama/.local/share/nvim/mason/bin"
 
+#Adds dotnet tools to path
+export PATH="$PATH:/home/sama/.dotnet/tools"
+
 # My Alias's
 alias lg=lazygit
 alias ldr=lazydocker
@@ -150,3 +153,9 @@ alias dotfiles="cd ~/.dotfiles"
 
 alias tff="tmux new -c \$(fd --type d | fzf)"
 alias cat="/usr/bin/batcat"
+
+# opencode
+export PATH=/home/sama/.opencode/bin:$PATH
+
+# pipx installs
+export PATH=/home/sama/.local/bin:$PATH
